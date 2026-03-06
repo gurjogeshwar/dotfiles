@@ -103,3 +103,9 @@ check-disks:
 verify-disko:
     @echo "Verifying disko configuration..."
     nix eval --impure --expr '(import ./hosts/randy/disko.nix).disko.devices'
+
+# Update hardware configuration from /etc/nixos and rebuild the system
+update-hw:
+    cp /etc/nixos/hardware-configuration.nix ./hosts/randy/hardware-configuration.nix
+    sudo nix --experimental-features "nix-command flakes" build .#nixosConfigurations.randy.config.system.build.toplevel
+    sudo nixos-rebuild switch --flake .#randy
