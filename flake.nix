@@ -15,6 +15,10 @@
     nixcord.url = "github:kaylorben/nixcord";
     sops-nix.url = "github:Mic92/sops-nix";
     nvf.url = "github:notashelf/nvf";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,6 +56,7 @@
               }
               inputs.home-manager.nixosModules.home-manager
               inputs.stylix.nixosModules.stylix
+              inputs.disko.nixosModules.disko
               ./hosts/randy/configuration.nix # CHANGEME: change the path to match your host folder
             ];
           };

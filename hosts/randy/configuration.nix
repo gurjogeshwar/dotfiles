@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   imports = [
     # Mostly system related configuration
     ../../nixos/nvidia.nix # CHANGEME: Remove this line if you don't have an Nvidia GPU
@@ -20,6 +21,7 @@
     # You should let those lines as is
     ./hardware-configuration.nix
     ./variables.nix
+    ./disko.nix
   ];
 
   home-manager.users."${config.var.username}" = import ./home.nix;
