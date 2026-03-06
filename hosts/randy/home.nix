@@ -18,9 +18,7 @@
     ../../home/programs/git/signing.nix # Change the key or remove this file
     ../../home/programs/spicetify
     ../../home/programs/thunar
-    ../../home/programs/discord
     ../../home/programs/nixy
-    ../../home/programs/zathura
     ../../home/programs/nightshift
     ../../home/programs/group/cybersecurity.nix
 
@@ -39,34 +37,20 @@
     packages = with pkgs; [
       # Apps
       vlc # Video player
-      blanket # White-noise app
-      obsidian # Note taking app
-      textpieces # Manipulate texts
-      resources # Ressource monitor
       gnome-clocks # Clocks app
       gnome-text-editor # Basic graphic text editor
       mpv # Video player
       ticktick # Todo app
-      session-desktop # Session app, private messages
-      signal-desktop # Signal app, private messages
       stirling-pdf # PDF Editor
-      calibre # Ebooks
       swappy # Screenshot tool
       pinta # Image editor
       notesnook
-      element-desktop
-      clamtk
 
       # Dev
-      go
-      bun
       nodejs
       python3
       jq
       just
-      air
-      duckdb
-      lazydocker
 
       # Just cool
       peaclock
