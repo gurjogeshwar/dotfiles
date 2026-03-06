@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   imports = [
     # Programs
     ../../home/programs/brave
@@ -59,7 +60,6 @@
       # Dev
       go
       bun
-      docker
       nodejs
       python3
       jq
@@ -80,7 +80,9 @@
     homeDirectory = "/home/" + config.var.username;
 
     # Import a profile picture, used by the caelestia dashboard
-    file.".face" = {source = ./profile_picture.png;};
+    file.".face" = {
+      source = ./profile_picture.png;
+    };
 
     sessionVariables = {
       AQ_DRM_DEVICES = "/dev/dri/card2:/dev/dri/card1"; # CHANGEME: Related to the GPU

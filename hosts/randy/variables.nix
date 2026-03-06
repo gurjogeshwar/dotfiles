@@ -12,18 +12,18 @@
   config.var = {
     hostname = "randy";
     username = "jogi";
-    configDirectory = "/home/" + config.var.username + "/.config/nixos"; # The path of the nixos configuration directory
+    configDirectory = "/home/" + config.var.username + "/dotfiles"; # The path of the nixos configuration directory
 
-    keyboardLayout = "fr";
+    keyboardLayout = "us";
 
-    location = "Paris";
-    timeZone = "Europe/Paris";
+    location = "India";
+    timeZone = "Asia/Kolkata";
     defaultLocale = "en_US.UTF-8";
-    extraLocale = "fr_FR.UTF-8";
+    extraLocale = "en_US.UTF-8";
 
     git = {
-      username = "Hadi";
-      email = "112569860+anotherhadi@users.noreply.github.com";
+      username = "gurjogeshwar";
+      email = "jogi123678@gmail.com ";
     };
 
     autoUpgrade = false;
