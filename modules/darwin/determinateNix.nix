@@ -21,6 +21,7 @@ lib.mkModule {
         experimental-features = [
           "nix-command"
           "flakes"
+          "wasm-builtin"
         ];
         accept-flake-config = true;
         substituters = [
@@ -36,8 +37,17 @@ lib.mkModule {
         fallback = true;
         warn-dirty = false;
       };
-      determinateNixd.garbageCollector.strategy = "automatic";
+
+      determinateNixd = {
+        garbageCollector.strategy = "automatic";
+        builder = {
+          state = "enabled";
+          memoryBytes = 8589934592;
+          cpuCount = 1;
+        };
+      };
     };
+
     nixpkgs.config = {
       allowUnfree = true;
       allowBroken = true;

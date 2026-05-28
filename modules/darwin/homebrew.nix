@@ -32,9 +32,9 @@
           enableRosetta = true;
           autoMigrate = false;
           taps = {
-            # "homebrew/homebrew-core" = inputs.homebrew-core;
-            # "homebrew/homebrew-cask" = inputs.homebrew-cask;
-            # "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+            "homebrew/homebrew-core" = inputs.homebrew-core;
+            "homebrew/homebrew-cask" = inputs.homebrew-cask;
+            "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
           };
         };
 
@@ -98,8 +98,8 @@
             upgrade = true;
           };
           taps = [
-            # "homebrew/core"
-            # "homebrew/cask"
+            "homebrew/core"
+            "homebrew/cask"
             "mhaeuser/mhaeuser"
             "netbirdio/tap"
             "Arthur-Ficial/tap"
@@ -108,45 +108,51 @@
             "iina"
             "blip"
             "bruno"
+            "ghostty"
             # "steam"
             "raycast"
+            "codex-app"
+            "t3-code"
             "spotify"
             "obsidian"
             # "motrix"
-            "gcloud-cli"
+            # "gcloud-cli"
             "antigravity"
-            "google-drive"
+            "codex"
+            "claude-code"
+            # "google-drive"
             # "epic-games"
             "google-chrome"
             "brave-browser"
             # "helium-browser"
             "keyboardcleantool"
             # "netbirdio/tap/netbird-ui"
-            "mhaeuser/mhaeuser/battery-toolkit"
+            # "mhaeuser/mhaeuser/battery-toolkit"
           ];
           brews = [
             "mas"
             "mole"
-            "sheets"
-            "opencode"
+            # "sheets"
+            # "opencode"
             # "colima"
             # "docker"
             "libiconv"
-            "tesseract"
+            # "tesseract"
             "gemini-cli"
             "tree-sitter"
             # "docker-buildx"
-            "tesseract-lang"
+            # "tesseract-lang"
             # "docker-compose"
             "tree-sitter-cli"
-            "netbirdio/tap/netbird"
-            "Arthur-Ficial/tap/apfel"
+            # "netbirdio/tap/netbird"
+            # "Arthur-Ficial/tap/apfel"
           ];
 
           # This declarative block takes over App Store duties perfectly
           masApps = {
             "WhatsApp Messenger" = 310633997;
             "Xcode" = 497799835;
+            "Apple Developer" = 640199958;
           };
         };
       };

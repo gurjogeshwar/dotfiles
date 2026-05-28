@@ -8,3 +8,5 @@ auto-save-list
 node_modules
 result
 result-*
+
+**/.claude/settings.local.json

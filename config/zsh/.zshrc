@@ -70,6 +70,7 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}%1{✘%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 # Shell integrations
+eval "$(sheldon source)"
 _cached_eval fzf fzf --zsh
 _cached_eval zoxide zoxide init --cmd cd zsh
 _cached_eval atuin atuin init zsh --disable-up-arrow

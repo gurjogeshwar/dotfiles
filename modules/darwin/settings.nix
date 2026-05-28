@@ -58,10 +58,20 @@ lib.mkModule {
           show-process-indicators = true;
           tilesize = 32;
           autohide-time-modifier = 1.0;
+          magnification = true;
+          largesize = 48;
           wvous-tl-corner = 1;
           wvous-tr-corner = 1;
           wvous-bl-corner = 1;
           wvous-br-corner = 1;
+          persistent-apps = [
+            "/System/Applications/Apps.app"
+            "/Applications/Spotify.app"
+            "/Applications/Ghostty.app"
+            "/Applications/Google Chrome.app"
+            "/Applications/WhatsApp.app"
+            "/Applications/Obsidian.app"
+          ];
         };
         controlcenter.BatteryShowPercentage = true;
       };

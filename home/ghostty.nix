@@ -11,11 +11,9 @@ myLib.mkHomeModule {
   name = "terminal.ghostty";
   description = "ghostty terminal";
   config = {
-    home.packages =
-      if pkgs.stdenv.isLinux then
-        [ inputs.ghostty.packages."${pkgs.stdenv.hostPlatform.system}".default ]
-      else
-        [ pkgs.brewCasks.ghostty ];
+    home.packages = lib.optionals pkgs.stdenv.isLinux [
+      inputs.ghostty.packages."${pkgs.stdenv.hostPlatform.system}".default
+    ];
 
     home.file.".config/ghostty".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/ghostty";
