@@ -61,5 +61,5 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.stateVersion = "26.11"; # Please read the comment before changing.
 }

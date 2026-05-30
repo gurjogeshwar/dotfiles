@@ -76,7 +76,7 @@
     $DRY_RUN_CMD mkdir -p "$HOME/workspace/docs"
   '';
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "26.11";
   home.sessionVariables = {
     XDG_CONFIG_HOME = "$HOME/.config";
     TERM = "ghostty";

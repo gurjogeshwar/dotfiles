@@ -95,6 +95,7 @@
           onActivation = {
             autoUpdate = false;
             cleanup = "uninstall";
+            extraFlags = [ "--force" ];
             upgrade = true;
           };
           taps = [

@@ -21,7 +21,7 @@ _cached_eval direnv direnv hook zsh
 
 # Base URL for the templates
 # NIX_TEMPLATE_URL="https://flakehub.com/f/the-nix-way/dev-templates/*"
-NIX_TEMPLATE_URL="github:gaurav2361/templates"
+NIX_TEMPLATE_URL="github:kiyors/templates"
 
 # Initialize the current directory with a template
 function nix-init {

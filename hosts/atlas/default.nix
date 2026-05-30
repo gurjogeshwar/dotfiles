@@ -54,7 +54,7 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "gaurav";
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 
   modules = {
     common.packages.enable = true;
