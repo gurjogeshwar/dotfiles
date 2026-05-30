@@ -61,6 +61,5 @@ atuin init nu | save --force $"($nu.cache-dir)/atuin.nu"
 
 # macOS specific
 if $nu.os-info.name == "macos" {
-    $env.DYLD_LIBRARY_PATH = "/opt/homebrew/lib/"
     $env.DYLD_FALLBACK_LIBRARY_PATH = "/opt/homebrew/lib"
 }

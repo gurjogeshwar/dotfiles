@@ -54,8 +54,14 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
-    vicinae.url = "github:vicinaehq/vicinae";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     betterfox = {
       url = "github:yokoffing/Betterfox";
       flake = false;
@@ -71,6 +77,7 @@
     };
     nh = {
       url = "github:gaurav2361/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

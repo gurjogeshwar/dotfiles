@@ -1,43 +1,43 @@
 { lib }:
-{
-  # Helper to create a simple module with an enable option
-  mkModule =
+let
+  # Internal builder shared by mkModule / mkHomeModule.
+  # `prefix` is "" for HM modules and "modules" for system modules.
+  mkModuleAt =
     {
+      prefix,
       name,
       description ? "Enable ${name} module",
       config,
       globalConfig,
-    }:
-    {
-      options = lib.setAttrByPath (lib.splitString "." "modules.${name}") {
-        enable = lib.mkEnableOption description;
-      };
-      config = lib.mkIf (lib.attrByPath (lib.splitString "." "modules.${name}.enable") false
-        globalConfig
-      ) config;
-    };
-
-  # Helper to create a simple module with an enable option for Home Manager (no predefined prefix)
-  mkHomeModule =
-    {
-      name,
-      description ? "Enable ${name} module",
-      config,
-      globalConfig,
+      imports ? [ ],
       enableDefault ? false,
     }:
+    let
+      fullPath = if prefix == "" then name else "${prefix}.${name}";
+      pathParts = lib.splitString "." fullPath;
+      enablePath = pathParts ++ [ "enable" ];
+      enableOption =
+        if enableDefault then
+          lib.mkOption {
+            type = lib.types.bool;
+            default = true;
+            inherit description;
+          }
+        else
+          lib.mkEnableOption description;
+    in
     {
-      options = lib.setAttrByPath (lib.splitString "." name) {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = enableDefault;
-          description = description;
-        };
-      };
-      config = lib.mkIf (lib.attrByPath (lib.splitString "." "${name}.enable") enableDefault
-        globalConfig
-      ) config;
-    };
+      options = lib.setAttrByPath pathParts { enable = enableOption; };
+      config = lib.mkIf (lib.attrByPath enablePath enableDefault globalConfig) config;
+    }
+    // lib.optionalAttrs (imports != [ ]) { inherit imports; };
+in
+{
+  # System modules: options live under `modules.<name>.enable`
+  mkModule = args: mkModuleAt (args // { prefix = "modules"; });
+
+  # Home Manager modules: options live under `<name>.enable`
+  mkHomeModule = args: mkModuleAt (args // { prefix = ""; });
 
   # Helper for boolean options
   mkBoolOpt =

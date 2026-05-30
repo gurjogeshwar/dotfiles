@@ -51,6 +51,66 @@ function nix-new {
   direnv allow
 }
 
+# ── Shell history backup ─────────────────────────────────────────────
+# Bundles zsh history, atuin db, and zoxide db into a timestamped tarball
+# under ~/Documents/shell-backups (override via $1).
+#
+# Usage:
+#   backup-shell-history                 # → ~/Documents/shell-backups/...
+#   backup-shell-history ~/Dropbox/bak   # custom destination
+function backup-shell-history {
+  emulate -L zsh
+  setopt pipefail
+
+  local dest_dir="${1:-$HOME/Documents/shell-backups}"
+  local timestamp
+  timestamp="$(date +%Y%m%d-%H%M%S)"
+  local host_tag="${HOST:-$(hostname -s)}"
+  local out="$dest_dir/shell-history-${host_tag}-${timestamp}.tar.gz"
+
+  mkdir -p "$dest_dir" || return 1
+
+  local staging
+  staging="$(mktemp -d)" || { print -u2 "backup-shell-history: mktemp failed"; return 1; }
+
+  local copied=0
+  local src
+  # zsh history
+  src="${HISTFILE:-$HOME/.zsh_history}"
+  if [[ -f "$src" ]]; then
+    cp -p -- "$src" "$staging/zsh_history" && (( copied++ ))
+  fi
+  # atuin sqlite db (and key, if present, so restore reuses the same encryption)
+  local atuin_dir="${XDG_DATA_HOME:-$HOME/.local/share}/atuin"
+  if [[ -f "$atuin_dir/history.db" ]]; then
+    cp -p -- "$atuin_dir/history.db" "$staging/atuin_history.db" && (( copied++ ))
+    [[ -f "$atuin_dir/key" ]] && cp -p -- "$atuin_dir/key" "$staging/atuin_key"
+  fi
+  # zoxide db
+  local zo_dir="${_ZO_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/zoxide}"
+  if [[ -f "$zo_dir/db.zo" ]]; then
+    cp -p -- "$zo_dir/db.zo" "$staging/zoxide_db.zo" && (( copied++ ))
+  fi
+
+  if (( copied == 0 )); then
+    rm -rf -- "$staging"
+    print -u2 "backup-shell-history: nothing found to back up"
+    return 1
+  fi
+
+  if tar -czf "$out" -C "$staging" .; then
+    rm -rf -- "$staging"
+    print -- "backup-shell-history: $copied file(s) → $out"
+  else
+    rm -rf -- "$staging"
+    print -u2 "backup-shell-history: tar failed"
+    return 1
+  fi
+}
+
+# Short alias
+alias bkhist='backup-shell-history'
+
 # ── Git Prompt Helpers ───────────────────────────────────────────────
 function parse_git_dirty() {
   local STATUS=''

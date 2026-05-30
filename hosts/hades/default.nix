@@ -9,7 +9,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./disko-config.nix
-    ../../home/docker.nix
     ../../modules
   ];
 
@@ -95,6 +94,7 @@
   modules = {
     common.packages.enable = true;
     nixos = {
+      docker.enable = true;
       nix.enable = true;
     };
   };

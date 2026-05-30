@@ -9,7 +9,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules
-    ../../home/docker.nix
   ];
 
   # Bootloader.
@@ -59,6 +58,7 @@
   modules = {
     common.packages.enable = true;
     nixos = {
+      docker.enable = true;
       fonts.enable = true;
       nixld.enable = true;
       nix.enable = true;

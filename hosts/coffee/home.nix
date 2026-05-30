@@ -23,6 +23,7 @@
     rust.enable = true;
     node.enable = true;
     python.enable = true;
+    php.enable = true;
   };
 
   editors = {
@@ -64,23 +65,21 @@
 
   xdg.userDirs.enable = false;
 
-  # Create directories
-  home.activation.createCustomDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD mkdir -p "$HOME/.config/sops/age"
-    $DRY_RUN_CMD mkdir -p "$HOME/personal"
-    $DRY_RUN_CMD mkdir -p "$HOME/personal/media"
-    $DRY_RUN_CMD mkdir -p "$HOME/personal/obsidian"
-    $DRY_RUN_CMD mkdir -p "$HOME/personal/projects"
-    $DRY_RUN_CMD mkdir -p "$HOME/personal/playground"
-    $DRY_RUN_CMD mkdir -p "$HOME/workspace"
-    $DRY_RUN_CMD mkdir -p "$HOME/workspace/docs"
-  '';
+  home.customDirs = [
+    ".config/sops/age"
+    "personal"
+    "personal/media"
+    "personal/obsidian"
+    "personal/projects"
+    "personal/playground"
+    "workspace"
+    "workspace/docs"
+  ];
 
   home.stateVersion = "26.11";
   home.sessionVariables = {
     XDG_CONFIG_HOME = "$HOME/.config";
     TERM = "ghostty";
-    EDITOR = "nvim";
     SHELL = "zsh";
   };
   home.sessionPath = [

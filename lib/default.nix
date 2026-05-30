@@ -9,11 +9,16 @@ baseLib
   # Merge our system strings into the standard lib.systems
   systems = baseLib.systems // configHelper.systems;
 
+  # Shared font package list — call with `pkgs`.
+  commonFontPkgs = import ./fonts.nix;
+
   # Flatten common helpers and metadata
   inherit (configHelper)
     forAllSystems
     standardOverlays
     overlays
+    isDarwin
+    mkPkgs
     mkNixosHost
     mkDarwinHost
     mkSystem

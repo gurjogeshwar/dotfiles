@@ -18,7 +18,6 @@ myLib.mkHomeModule {
         php
         phpPackages.composer
         phpactor # PHP refactoring + LSP fallback
-        php-cs-fixer # alternative formatter to pint
       ];
 
       sessionVariables = {
@@ -29,6 +28,11 @@ myLib.mkHomeModule {
 
       activation.initPhp = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         $DRY_RUN_CMD mkdir -p ${composerHome}/vendor/bin
+        # Fix for stty issue on macOS when coreutils is installed
+        if [ "$(uname)" = "Darwin" ]; then
+          $DRY_RUN_CMD mkdir -p $HOME/.local/bin
+          $DRY_RUN_CMD ln -sf /bin/stty $HOME/.local/bin/stty
+        fi
         if [ ! -e ${composerHome}/vendor/bin/laravel ]; then
           $DRY_RUN_CMD ${pkgs.phpPackages.composer}/bin/composer global require laravel/installer --no-interaction || true
         fi

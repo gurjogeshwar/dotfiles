@@ -16,10 +16,17 @@
     ./mpv.nix
     ./spicetify.nix
     ./sops.nix
+    ./dirs.nix
   ];
 
   editors = {
     neovim.enable = true;
+  };
+
+  # Baseline session defaults shared across hosts. Per-host home.nix may
+  # extend this attrset; it won't conflict with single-value defaults here.
+  home.sessionVariables = {
+    EDITOR = "nvim";
   };
 
   # Disable manual generation to avoid options.json warning

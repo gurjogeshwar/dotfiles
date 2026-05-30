@@ -5,6 +5,7 @@
     ./bluetooth.nix
     ./desktop/gnome/default.nix
     ./desktop/hyprland.nix
+    ./docker.nix
     ./fonts.nix
     ./locale.nix
     ./nix.nix

@@ -36,5 +36,14 @@ myLib.mkHomeModule {
 
     home.file.".config/sheldon".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/sheldon";
+
+    home.activation.initZsh = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      $DRY_RUN_CMD mkdir -p $HOME/.cache/zsh
+      # Fix for stty issue on macOS when coreutils is installed
+      if [ "$(uname)" = "Darwin" ]; then
+        $DRY_RUN_CMD mkdir -p $HOME/.local/bin
+        $DRY_RUN_CMD ln -sf /bin/stty $HOME/.local/bin/stty
+      fi
+    '';
   };
 }

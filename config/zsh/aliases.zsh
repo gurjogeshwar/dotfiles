@@ -1,7 +1,7 @@
 #!/bin/sh
 
 alias c='clear'
-alias vi='vim'
+alias vi='nvim'
 alias vim='nvim'
 alias ni='nvim'
 alias lzg='lazygit'

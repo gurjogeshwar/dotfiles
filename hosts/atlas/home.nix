@@ -18,6 +18,7 @@
     ../../home/thunar.nix
     ../../home/ghostty.nix
     ../../home/sops.nix
+    ../../home/dirs.nix
 
     ./secrets
   ];
@@ -47,15 +48,14 @@
     createDirectories = true; # This is the key part
   };
 
-  # this piece of code is for creating empty directories
-  home.activation.createCustomDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD mkdir -p "$HOME/.config/sops/age"
-    $DRY_RUN_CMD mkdir -p "$HOME/personal"
-    $DRY_RUN_CMD mkdir -p "$HOME/personal/media"
-    $DRY_RUN_CMD mkdir -p "$HOME/personal/projects"
-    $DRY_RUN_CMD mkdir -p "$HOME/personal/playground"
-    $DRY_RUN_CMD mkdir -p "$HOME/workspace"
-  '';
+  home.customDirs = [
+    ".config/sops/age"
+    "personal"
+    "personal/media"
+    "personal/projects"
+    "personal/playground"
+    "workspace"
+  ];
 
   programs.home-manager.enable = true;
   home.sessionVariables = {

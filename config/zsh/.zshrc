@@ -31,13 +31,28 @@ source "$HOME/.config/zsh/functions.zsh"
 # Sheldon – plugin manager (cached: regenerates when lock file changes)
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+# Load ZVM synchronously so keys pressed right after the prompt aren't dropped.
+ZVM_INIT_MODE=sourcing
 {
-  local sheldon_cache="$ZSH_CACHE_DIR/sheldon.zsh"
-  local sheldon_lock="$HOME/.local/share/sheldon/plugins.lock"
-  if [[ ! -f "$sheldon_cache" || "$sheldon_lock" -nt "$sheldon_cache" ]]; then
-    sheldon source > "$sheldon_cache" 2>/dev/null
+  sheldon_cache="$ZSH_CACHE_DIR/sheldon.zsh"
+  sheldon_lock="$HOME/.local/share/sheldon/plugins.lock"
+  # Regenerate cache when missing/empty or the lockfile is newer.
+  # Use a temp file so a partial first-run (plugins still downloading) never
+  # commits a broken cache that breaks subsequent shells.
+  if [[ ! -s "$sheldon_cache" || "$sheldon_lock" -nt "$sheldon_cache" ]]; then
+    if sheldon source > "$sheldon_cache.tmp" 2>/dev/null && [[ -s "$sheldon_cache.tmp" ]]; then
+      mv "$sheldon_cache.tmp" "$sheldon_cache"
+    else
+      rm -f "$sheldon_cache.tmp"
+    fi
   fi
-  source "$sheldon_cache"
+  if [[ -s "$sheldon_cache" ]]; then
+    source "$sheldon_cache"
+  else
+    # First-run fallback: cache wasn't writable/usable yet — source live so
+    # plugins still load on a fresh machine.
+    eval "$(sheldon source)"
+  fi
 }
 
 # compinit (fast: -C uses cached dump, skips re-scan)
@@ -69,8 +84,7 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}%1{✘%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
-# Shell integrations
-eval "$(sheldon source)"
+# Shell integrations (sheldon already sourced from cache above — do not re-source)
 _cached_eval fzf fzf --zsh
 _cached_eval zoxide zoxide init --cmd cd zsh
 _cached_eval atuin atuin init zsh --disable-up-arrow

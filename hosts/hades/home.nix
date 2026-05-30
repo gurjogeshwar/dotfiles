@@ -23,8 +23,5 @@
   xdg.userDirs.enable = false;
 
   programs.home-manager.enable = true;
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
   home.stateVersion = "26.11";
 }

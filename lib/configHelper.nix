@@ -19,10 +19,13 @@ let
   # Helper to generate attributes for all systems
   forAllSystems = lib.genAttrs (builtins.attrValues systems);
 
+  # Import overlays once and reuse
+  overlays = import ../overlays { inherit inputs; };
+
   # Standard overlays for all hosts
   standardOverlays = [
-    (import ../overlays { inherit inputs; }).additions
-    (import ../overlays { inherit inputs; }).modifications
+    overlays.additions
+    overlays.modifications
   ];
 
   # Platform helpers
@@ -40,9 +43,14 @@ let
 
 in
 rec {
-  inherit systems forAllSystems standardOverlays;
-
-  overlays = import ../overlays { inherit inputs; };
+  inherit
+    systems
+    forAllSystems
+    standardOverlays
+    overlays
+    isDarwin
+    mkPkgs
+    ;
 
   # Helper for NixOS configurations
   mkNixosHost =

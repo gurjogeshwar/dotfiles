@@ -1,0 +1,13 @@
+# Shared font packages used on both macOS and NixOS hosts.
+# Per-platform extras live in modules/{darwin,nixos}/fonts.nix.
+pkgs: with pkgs; [
+  roboto
+  work-sans
+  comic-neue
+  inter
+  lato
+  (google-fonts.override { fonts = [ "Inter" ]; })
+  jetbrains-mono
+  nerd-fonts.jetbrains-mono
+  nerd-fonts.zed-mono
+]

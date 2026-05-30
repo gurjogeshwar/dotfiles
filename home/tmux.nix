@@ -20,11 +20,11 @@ myLib.mkHomeModule {
       plugins = with pkgs.tmuxPlugins; [
         sessionist
       ];
-      extraConfig = builtins.readFile ../config/tmux/tmux.conf;
+      # HM writes ~/.tmux.conf which just hands control to the symlinked config below.
+      extraConfig = ''source-file ~/.config/tmux/tmux.conf'';
     };
-    home.file.".config/tmux" = {
-      recursive = true;
-      source = ../config/tmux;
-    };
+
+    home.file.".config/tmux".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/tmux";
   };
 }
