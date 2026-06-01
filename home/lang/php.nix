@@ -18,6 +18,7 @@ myLib.mkHomeModule {
         php
         phpPackages.composer
         phpactor # PHP refactoring + LSP fallback
+        php83Packages.php-cs-fixer # Formatter fallback for non-Laravel PHP
       ];
 
       sessionVariables = {
