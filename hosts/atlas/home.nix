@@ -8,18 +8,7 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   imports = [
-    ../../home/shell
-    ../../home/git
-    ../../home/editor
-    ../../home/hyprland
-    ../../home/waybar
-    ../../home/spicetify.nix
-    ../../home/vicinae.nix
-    ../../home/thunar.nix
-    ../../home/ghostty.nix
-    ../../home/sops.nix
-    ../../home/dirs.nix
-
+    ../../home
     ./secrets
   ];
 
@@ -37,6 +26,12 @@
   editors = {
     neovim.enable = true;
   };
+
+  desktop.hyprland.enable = true;
+  desktop.vicinae.enable = true;
+  desktop.waybar.enable = true;
+  desktop.swaync.enable = true;
+  desktop.swayosd.enable = true;
 
   home.username = "gaurav";
   home.homeDirectory = "/home/gaurav";
