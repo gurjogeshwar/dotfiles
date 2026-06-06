@@ -55,6 +55,7 @@
   programs.home-manager.enable = true;
   home.sessionVariables = {
     EDITOR = "nvim";
+    BROWSER = "google-chrome";
   };
   home.stateVersion = "26.11"; # Please read the comment before changing.
 }
