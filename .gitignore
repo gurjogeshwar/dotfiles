@@ -12,3 +12,4 @@ result-*
 skills-lock.json
 .cache/
 /config/ghostty/config
+.claude/
